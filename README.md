@@ -75,7 +75,7 @@ figures/, results/          outputs of the experiments
 git clone https://github.com/hammadshakeelai/gradient-descent-lr-research.git
 cd gradient-descent-lr-research
 python -m venv .venv
-.venvScriptsActivate.ps1      # Windows PowerShell;  macOS/Linux: source .venv/bin/activate
+.venv\Scripts\Activate.ps1      # Windows PowerShell;  macOS/Linux: source .venv/bin/activate
 pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
 
