@@ -1,0 +1,7 @@
+# CPU-only PyTorch is enough for every experiment here:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.1
+numpy
+matplotlib
+schedulefree   # Schedule-Free SGD/AdamW (Defazio et al. 2024)
+prodigyopt     # Prodigy (Mishchenko & Defazio 2023)

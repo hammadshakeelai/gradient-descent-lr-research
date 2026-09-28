@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.remember/
+# Papers are copyrighted by their authors; download them with scripts/download_papers.py
+papers/*.pdf
