@@ -61,7 +61,7 @@ if __name__ == "__main__":
     methods = ["constant SGD", "cosine SGD", "wsd SGD", "HD-SGD (Baydin 2018)", "HD-WSD (ours)"]
     lr_grid = np.logspace(-5, -1, 9)
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(13, 4.5))
-    print(f"final loss (median of 3 seeds); stability limit 2/L = {2 / 100:.3g} (momentum lowers it)")
+    print(f"final loss (median of 3 seeds); heavy-ball stability limit 2(1+0.9)/L = {3.8 / 100:.3g}")
     print("init lr    " + "".join(f"{m[:14]:>16s}" for m in methods))
     table = {m: [] for m in methods}
     for lr0 in lr_grid:

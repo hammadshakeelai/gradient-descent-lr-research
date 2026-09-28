@@ -20,7 +20,7 @@ w_{t+1} = (1 − η h) w_t   ⇒   w_t = (1 − η h)^t w_0
 
 ➡ This is why one fixed LR is a compromise. It has to be small enough for the steep directions, and that makes it slow in the flat ones.
 
-Momentum (heavy ball, β = 0.9): w ← w − η d, with d ← β d + ∇L. The effective step is about η/(1−β), which is 10× larger, so the stability limit drops to about **2(1+β)/L**.
+Momentum (heavy ball, β = 0.9): w ← w − η d, with d ← β d + ∇L. For a quadratic this is stable when **η h < 2(1+β)**, so momentum *raises* the LR limit to 2(1+β)/L ≈ 3.8/L for β = 0.9. Near the limit, though, the iterates oscillate more, because the effective step is about η/(1−β) = 10η. (Experiment 3: constant SGD survives η = 0.032 > 2/L = 0.02, but diverges at η = 0.1 > 0.038.)
 
 *Experiment 3 uses h from 1 to 100 (κ = 100) to show this.*
 
