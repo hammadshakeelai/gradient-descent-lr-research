@@ -109,12 +109,15 @@ for x, y in loader:
 4. Run experiments 3 and 4.
 5. [01-literature-review.md](research/01-literature-review.md): where the field is and what is still open.
 
-## Open problems (contributions welcome)
+## Future plans
 
-- A convergence proof for HD-WSD (stable phase + linear-cooldown last-iterate bound).
-- A principled *when-to-decay* trigger.
-- An exploration-aware hypergradient that doesn't shrink the LR on multi-modal landscapes.
-- Tests on real benchmarks: CIFAR-10, a small GPT, AlgoPerf.
+Not everything is solved. The **exploration problem on multi-modal landscapes is still open**: four fixes were tried, and each one helped Rastrigin only by hurting the smooth problems. The full plan, with candidate fixes, success criteria, scale-up benchmarks and theory goals, is in **[ROADMAP.md](ROADMAP.md)**.
+
+Top next steps:
+1. A noise-floor test and a sharpness test, to tell "stuck in a basin" apart from "at the noise floor".
+2. Benchmark the budget-free (plateau-triggered) cooldown, and add an HD-AdamW variant.
+3. Scale up to CIFAR-10 / ResNet-18 and nanoGPT against Prodigy and Schedule-Free.
+4. A convergence proof for HD-WSD.
 
 ## License
 
