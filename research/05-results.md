@@ -79,8 +79,24 @@ Final loss, median of 3 seeds (lower is better; `inf` = diverged):
 ### Limitations
 Small models, synthetic data, short runs, and 3 seeds. The cooldown in these tests was budget-triggered: the plateau trigger exists in the code but hasn't been benchmarked yet. Treat these results as a pilot, not as proof.
 
+### Attempts to fix the Rastrigin exploration problem (negative results)
+
+**Diagnosis.** Traced on one Rastrigin run, HD-WSD's LR falls steadily from 1e-3 to 5e-5. Near the bottom of *any* basin, the momentum iterates oscillate, so the cosine is negative and the hypergradient shrinks the LR. Locally that's the *correct* greedy answer: a smaller LR does lower the loss one step ahead. Exploring requires deliberately ignoring it.
+
+Four fixes tried, each checked on all three problems (Rastrigin median over 10–20 starts, quadratic final loss at init LR 1e-5 / 1e-3 / 1e-1, MLP accuracy at LR 1e-3 / 0.1 / 1):
+
+| Fix | Rastrigin | Rosenbrock | Quadratic | MLP | Verdict |
+|---|---|---|---|---|---|
+| none (shipped) | 14.4 | 0.012 | 0.013 / 0.014 / 0.017 | 0.99 / 1.00 / 1.00 | baseline |
+| long-horizon reference direction (slow gradient average in the cosine) | no change (LR still falls) | – | – | – | ❌ |
+| LR kick ×3 when the loss plateaus | **11.0** | **0.0034** | 0.08 / 0.09 / 0.08 | unchanged | ❌ quadratic 6× worse: a plateau there is the noise floor, not a local minimum |
+| kick, undone if no new best loss | 14.4 | 0.0045 | 0.015 / 0.015 / 0.016 | lr=1 drops to 0.78 | ❌ the gain disappears |
+| overshoot bias: lr·exp(β(cos + b)), b = 0.1 / 0.2 / 0.3 | 14.9 / 12.5 / **6.7** | 0.004 / 0.012 / 0.019 | 3× / 7× / 9× worse | diverges at high LR | ❌ clear trade-off |
+
+**Conclusion.** A single greedy LR controller has no free lunch between exploring (multi-modal problems) and settling (convex or smooth problems). Every rule that makes it explore on Rastrigin costs about 3–9× on the quadratic. To tell a *local minimum* apart from a *noise floor*, you need information the one-step signal doesn't have. Candidates: population / parallel runs, second-order or sharpness information, or a validation signal. This is the gap from the literature review (G1 and G5), now confirmed empirically.
+
 ### Next steps
-1. Rastrigin fix: a floor on the LR during the stable phase, or a hypergradient on a smoothed / multi-step loss.
+1. Exploration: tell "stuck in a basin" apart from "at the noise floor". This needs a signal beyond one-step gradients (see above).
 2. Benchmark the plateau-triggered cooldown (no `total_steps`).
 3. Scale up: CIFAR-10 ResNet-18 and nanoGPT, against Prodigy, Schedule-Free and D-Adaptation.
 4. Theory: a last-iterate bound for HD-WSD (see Math Notes §7).

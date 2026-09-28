@@ -1,3 +1,5 @@
+<p align="center"><img src="figures/banner.svg" alt="Learning-Rate Research banner" width="100%"></p>
+
 # Learning-Rate Research: Big Steps First, Then Small Steps
 
 An open, beginner-friendly study of one question:

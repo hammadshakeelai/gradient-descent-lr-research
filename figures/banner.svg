@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="lr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#ef4444"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#34d399" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="300" fill="url(#bg)"/>
+
+  <!-- loss-landscape contours (right side) -->
+  <g fill="none" stroke="#6366f1" stroke-opacity="0.35" stroke-width="1.5">
+    <ellipse cx="930" cy="170" rx="240" ry="115"/>
+    <ellipse cx="930" cy="170" rx="185" ry="88"/>
+    <ellipse cx="930" cy="170" rx="135" ry="64"/>
+    <ellipse cx="930" cy="170" rx="90" ry="42"/>
+    <ellipse cx="930" cy="170" rx="50" ry="23"/>
+    <ellipse cx="930" cy="170" rx="20" ry="9"/>
+  </g>
+
+  <!-- optimizer path: big zig-zag steps first, then small ones converging -->
+  <polyline fill="none" stroke="#e2e8f0" stroke-width="2.5" stroke-linejoin="round" stroke-opacity="0.9"
+    points="700,60 790,265 850,85 885,240 905,120 918,210 925,145 929,188 930,162 930,174 930,170"/>
+  <g fill="#e2e8f0">
+    <circle cx="700" cy="60" r="5"/><circle cx="790" cy="265" r="4.5"/><circle cx="850" cy="85" r="4"/>
+    <circle cx="885" cy="240" r="3.5"/><circle cx="905" cy="120" r="3"/><circle cx="918" cy="210" r="2.5"/>
+    <circle cx="925" cy="145" r="2"/><circle cx="929" cy="188" r="2"/>
+  </g>
+  <circle cx="930" cy="170" r="22" fill="url(#glow)"/>
+  <circle cx="930" cy="170" r="5" fill="#34d399"/>
+
+  <!-- learning-rate schedule sketch: warmup, stable, cooldown -->
+  <g transform="translate(60,215)">
+    <path d="M0,60 L40,10 L300,10 L380,60" fill="none" stroke="url(#lr)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="0" y="80" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#94a3b8">warmup · stable (learned by hypergradient) · cooldown</text>
+  </g>
+
+  <text x="60" y="95" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="46" font-weight="700" fill="#f8fafc">Learning-Rate Research</text>
+  <text x="60" y="140" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" fill="#cbd5e1">Big steps first, then small steps.</text>
+  <text x="60" y="175" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" fill="#a5b4fc">28 papers · math notes · PyTorch experiments · HD-WSD prototype</text>
+</svg>
